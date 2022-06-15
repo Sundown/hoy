@@ -75,7 +75,7 @@ let other = fmt("magenta", "Other", true);
 
 console.log(`Committed "${chalk.green(msg)}"\n${added}${modified}${other}`);
 
-await $`git push origin ${branch}${force ? " -f" : ""}`.quiet().catch(e => {
+await $`git push origin ${branch} ${force ? " -f" : ""}`.quiet().catch(e => {
     console.log("Something went wrong while trying to push");
     console.log(e);
     process.exit(1);
