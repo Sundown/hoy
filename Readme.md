@@ -1,11 +1,13 @@
 <h2 align="center"> (A)hoy!</h2>
 
+<p align="center">
 Convenient wrapper for the *`git add, commit, push`* sequence.
 
 Written for Node with Google's [zx](https://github.com/google/zx) scripting library.
 
 <img align="center" src="screenshot.png" width="50%" title="Sample">
 
+</p>
 ---
 
 #### Usage
