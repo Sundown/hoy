@@ -1,10 +1,10 @@
-<h3 align="centre">(A)hoy! :octopus:</h3>
+<p align="centre"><h3>(A)hoy! :octopus:</h3><p/>
 
 Convenient wrapper for the *`git add, commit, push`* sequence.
 
 Written for Node with Google's [zx](https://github.com/google/zx) scripting library.
 
-<img align="centre" src="screenshot.png" width="50%" title="Sample">
+<img align="float: centre" src="screenshot.png" width="50%" title="Sample">
 
 ---
 
