@@ -1,0 +1,22 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Script to sync your Git repo",
+  "main": "hoy",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sundown/hoy.git"
+  },
+  "keywords": [
+    "git"
+  ],
+  "author": "Sundown",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/Sundown/hoy/issues"
+  },
+  "homepage": "https://github.com/Sundown/hoy#readme"
+}
