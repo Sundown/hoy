@@ -86,7 +86,7 @@ const list = arr => arr.length === 1
     + " and "
     + arr[arr.length - 1];
 
-console.log(`${dot}Committed "${chalk.green(msg)}"\n${list(changed)} changes`);
+console.log(`${dot}Committed ${list(changed)} changes under "${chalk.green(msg)}"`);
 
 let flags = [
     "origin",
