@@ -87,7 +87,7 @@ const list = arr => arr.length === 1
     + " and "
     + arr[arr.length - 1];
 
-msg = chalk.green(msg).substring(0, 10) + msg.length > 10 ? "..." : "";
+msg = chalk.green(msg.substring(0, 10) + (msg.length > 10 ? "..." : ""));
 
 console.log(`${dot}Committed ${list(changed)} file${changed.length > 1 ? "s" : ""} under "${msg}"`);
 
