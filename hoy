@@ -1,5 +1,7 @@
 #!/usr/bin/env zx
 
+const dot = chalk.gray("*") + " ";
+
 // Need branch so we push correctly
 let branch = await $`git branch --show-current`.quiet().catch(() => {
     console.log(`${chalk.red("Error")}, can't find current branch, are you in a git directory?`);
@@ -35,15 +37,17 @@ if (argv.f) {
 // otherwise use only `git commit -a ...` to add tracked files
 let addAll = false;
 if (argv.a) {
-    console.log(`Adding ${chalk.green("all")} files`);
     const files = await glob(["*"]);
     await $`git add ${files}`.quiet().catch(async () => {
         console.log("Something went wrong while trying to add files, reset.");
         await $`git reset`.quiet().catch(() => { });
         process.exit(1)
     });
+
     addAll = true;
 }
+
+console.log(`${dot}Added ${addAll ? chalk.green("all") : chalk.blue("tracked")} files`);
 
 // Colourless output of `git status -s` split into clean lines
 const staged = await $`git status --porcelain`.quiet();
@@ -73,7 +77,7 @@ let added = fmt("green", "Added", "A");
 let modified = fmt("yellow", "Modified", "M");
 let other = fmt("magenta", "Other", true);
 
-console.log(`Committed "${chalk.green(msg)}"\n${added}${modified}${other}`);
+console.log(`${dot}Committed "${chalk.green(msg)}"\n${added}${modified}${other}`);
 
 let flags = [
     "origin",
@@ -86,5 +90,7 @@ await $`git push ${flags}`.quiet().catch(e => {
     console.log(e);
     process.exit(1);
 })
+
+console.log(`${dot}Pushed to ${chalk.green(branch)}`);
 
 // Done
