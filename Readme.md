@@ -6,9 +6,9 @@ Convenient wrapper for the *`git add, commit, push`* sequence.
 
 Written for Node with Google's [zx](https://github.com/google/zx) scripting library.
 
-<img align="center" src="screenshot.png" width="50%" title="Sample">
-
 </p>
+
+<img align="center" src="screenshot.png" width="50%" title="Sample">
 
 ---
 
