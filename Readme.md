@@ -1,4 +1,6 @@
-<p align="center"><h3>(A)hoy! :octopus:</h3><p/>
+<p align="center">
+  <h3>(A)hoy! :octopus:</h3>
+</p>
 
 Convenient wrapper for the *`git add, commit, push`* sequence.
 
