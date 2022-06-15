@@ -1,4 +1,4 @@
-<h2 align="center"> (A)hoy!</h2>
+<h3 align="center"> (A)hoy!</h3>
 
 <p align="center">
 
@@ -9,6 +9,7 @@ Written for Node with Google's [zx](https://github.com/google/zx) scripting libr
 <img align="center" src="screenshot.png" width="50%" title="Sample">
 
 </p>
+
 ---
 
 #### Usage
