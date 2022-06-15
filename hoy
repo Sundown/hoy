@@ -19,7 +19,7 @@ if (argv._.length != 2) {
 }
 
 // Commit message
-const msg = argv._[1];
+let msg = argv._[1];
 
 // git push -f ...
 let force = false;
