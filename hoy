@@ -48,8 +48,6 @@ if (argv.a) {
     addAll = true;
 }
 
-console.log(`${dot}Added ${addAll ? chalk.green("all") : chalk.blue("tracked")} files`);
-
 // Colourless output of `git status -s` split into clean lines
 const staged = await $`git status --porcelain`.quiet();
 const lines = staged.stdout
@@ -67,6 +65,8 @@ if (lines.length < 1) {
     console.log(`${err}No files staged to commit.`);
     process.exit(1);
 }
+
+console.log(`${dot}Added ${addAll ? chalk.green("all") : chalk.blue("tracked")} files`);
 
 // Apotheosis
 await $`git commit ${addAll ? "" : "-a"} -m "${msg}"`.quiet().catch(e => {
