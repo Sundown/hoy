@@ -17,5 +17,5 @@ Hoy **will respect your current branch**.
 **Requires** Node version >= 16.0.0 and [zx](https://github.com/google/zx) installed with `npm i -g zx`.
 
 <p align="center">
-  <img src="screenshot.png" width="50%" title="Sample">
+  <img src="screenshot.png" width="65%" title="Sample">
 </p>
