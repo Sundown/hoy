@@ -1,3 +1,6 @@
+<div>
+  <img style="float: right;"  src="screenshot.png" width="65%" title="Sample">
+
 ### (A)hoy! :octopus:
 
 Git wrapper for stupid people like you, who are too lazy to write two commands.
@@ -5,10 +8,7 @@ Git wrapper for stupid people like you, who are too lazy to write two commands.
 Written for Node with Google's [zx](https://github.com/google/zx) scripting library.
 
 This is bloated for a Git wrapper, but everyone has the dependencies installed anyway so that doesn't matter.
-
-<p align="center">
-  <img src="screenshot.png" width="75%" title="Sample">
-</p>
+</div>
 
 ---
 
