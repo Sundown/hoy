@@ -1,10 +1,11 @@
 #!/usr/bin/env zx
 
 const dot = chalk.gray("*") + " ";
+const err = chalk.red("!") + " ";
 
 // Need branch so we push correctly
 let branch = await $`git branch --show-current`.quiet().catch(() => {
-    console.log(`${chalk.red("Error")}, can't find current branch, are you in a git directory?`);
+    console.log(`${err}Can't find current branch, are you in a git directory?`);
     process.exit(1)
 });
 
@@ -13,7 +14,7 @@ branch = branch.stdout.trim();
 // TODO
 // Might be a little issue here if -f is written before the commit message
 if (argv._.length != 2) {
-    console.log(`Please supply ${chalk.blue("1")} argument, you supplied ${chalk.yellow(argv._.length - 1)}`)
+    console.log(`${err}Please supply ${chalk.blue("1")} argument, you supplied ${chalk.yellow(argv._.length - 1)}`)
     process.exit(1);
 }
 
@@ -23,24 +24,24 @@ const msg = argv._[1];
 // git push -f ...
 let force = false;
 if (argv.f) {
-    let input = await question(`Are you ${chalk.underline.bold("sure")} you want to ${chalk.yellow("force push")}? [y/N] `)
+    let input = await question(`${chalk.gray("?")} Are you ${chalk.underline.bold("sure")} you want to ${chalk.yellow("force push")} ? [y / N]`)
     if (input.toLowerCase() === "y") {
-        console.log(chalk.red.bold("Forcing!"));
+        console.log(dot + chalk.red.bold(`Forcing!`));
         force = true;
     } else {
-        console.log("Cancelled");
+        console.log(`${dot}Cancelled`);
         process.exit(0);
     }
 }
 
-// Run `git add *` if -a is specified
-// otherwise use only `git commit -a ...` to add tracked files
+// Run `git add * ` if -a is specified
+// otherwise use only `git commit - a ...` to add tracked files
 let addAll = false;
 if (argv.a) {
     const files = await glob(["*"]);
     await $`git add ${files}`.quiet().catch(async () => {
-        console.log("Something went wrong while trying to add files, reset.");
-        await $`git reset`.quiet().catch(() => { });
+        console.log(`${err}Something went wrong while trying to add files, reset.`);
+        await $`git reset`.quiet().catch(() => console.log(`${err}Couldn't reset either...`));
         process.exit(1)
     });
 
@@ -63,12 +64,12 @@ const fmt = (colour, title, prefix) => {
 }
 
 if (lines.length < 1) {
-    console.log(`${chalk.red("Error")}, no files staged`);
+    console.log(`${err}No files staged to commit.`);
     process.exit(1);
 }
 
 await $`git commit ${addAll ? "" : "-a"} -m "${msg}"`.quiet().catch(e => {
-    console.log("Something went wrong while trying to commit");
+    console.log(`${err}Something went wrong while trying to commit`);
     console.log(e);
     process.exit(1);
 });
@@ -86,7 +87,9 @@ const list = arr => arr.length === 1
     + " and "
     + arr[arr.length - 1];
 
-console.log(`${dot}Committed ${list(changed)} file${changed.length > 1 ? "s" : ""} under "${chalk.green(msg)}"`);
+msg = chalk.green(msg).substring(0, 10) + length(msg) > 10 ? "..." : "";
+
+console.log(`${dot}Committed ${list(changed)} file${changed.length > 1 ? "s" : ""} under "${msg}"`);
 
 let flags = [
     "origin",
@@ -100,6 +103,6 @@ await $`git push ${flags}`.quiet().catch(e => {
     process.exit(1);
 })
 
-console.log(`${dot}Pushed to ${chalk.green(branch)}`);
+console.log(`${dot}${force ? "Force p" : "P"}ushed to ${chalk.green(branch)}`);
 
 // Done
