@@ -6,6 +6,10 @@ Written for Node with Google's [zx](https://github.com/google/zx) scripting libr
 
 This is bloated for a Git wrapper, but everyone has the dependencies installed anyway so that doesn't matter.
 
+<p align="center">
+  <img src="screenshot.png" width="75%" title="Sample">
+</p>
+
 ---
 
 #### Usage
