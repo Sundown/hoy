@@ -1,5 +1,5 @@
 <div>
-  <img align="right" src="screenshot.png" width="65%" title="Sample">
+  <img align="right" src="screenshot.png" width="50%" title="Sample">
 
 ### (A)hoy! :octopus:
 
