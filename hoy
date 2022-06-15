@@ -1,0 +1,83 @@
+#!/usr/bin/env zx
+
+// Need branch so we push correctly
+let branch = await $`git branch --show-current`.quiet().catch(() => {
+    console.log(`${chalk.red("Error")}, can't find current branch, are you in a git directory?`);
+    process.exit(1)
+});
+
+branch = branch.stdout.trim();
+
+// TODO
+// Might be a little issue here if -f is written before the commit message
+if (argv._.length != 2) {
+    console.log(`Please supply ${chalk.blue("1")} argument, you supplied ${chalk.yellow(argv._.length - 1)}`)
+    process.exit(1);
+}
+
+// Commit message
+const msg = argv._[1];
+
+// git push -f ...
+let force = false;
+if (argv.f) {
+    let input = await question(`Are you ${chalk.underline.bold("sure")} you want to ${chalk.yellow("force push")}? [y/N] `)
+    if (input.toLowerCase() === "y") {
+        console.log(chalk.red.bold("Forcing!"));
+        force = true;
+    } else {
+        console.log("Cancelled");
+        process.exit(0);
+    }
+}
+
+// Run `git add *` if -a is specified
+// otherwise use only `git commit -a ...` to add tracked files
+let addAll = false;
+if (argv.a) {
+    console.log(`Adding ${chalk.green("all")} files`);
+    const files = await glob(["*"]);
+    await $`git add ${files}`.quiet().catch(async () => {
+        console.log("Something went wrong while trying to add files, reset.");
+        await $`git reset`.quiet().catch(() => { });
+        process.exit(1)
+    });
+    addAll = true;
+}
+
+// Colourless output of `git status -s` split into clean lines
+const staged = await $`git status --porcelain`.quiet();
+const lines = staged.stdout
+    .split("\n")
+    .map(s => s.trim().split(" "))
+    .filter(s => s.length > 1);
+
+// Results in `Title n` with title coloured with chalk.colour
+const fmt = (colour, title, prefix) => {
+    const c = lines.filter(l => l[0] == prefix).length;
+    return c > 0 ? `${chalk[colour](title)} ${c} ` : ""
+}
+
+if (lines.length < 1) {
+    console.log(`${chalk.red("Error")}, no files staged`);
+    process.exit(1);
+}
+
+await $`git commit ${addAll ? "" : "-a"} -m "${msg}"`.quiet().catch(e => {
+    console.log("Something went wrong while trying to commit");
+    console.log(e);
+    process.exit(1);
+});
+
+let added = fmt("green", "Added", "A");
+let modified = fmt("yellow", "Modified", "M");
+let other = fmt("magenta", "Other", true);
+
+console.log(`Committed "${chalk.green(msg)}"\n${added}${modified}${other}`);
+
+await $`git push origin ${branch}${force ? " -f" : ""}`.quiet().catch(() => {
+    console.log("Something went wrong while trying to push");
+    process.exit(1);
+})
+
+// Done
