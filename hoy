@@ -106,8 +106,6 @@ flags = [
     force ? "-f" : "",
 ]
 
-console.log(flags)
-
 await $`git push ${flags}`.quiet().catch(e => {
     console.log("Something went wrong while trying to push.");
     console.log(e.stderr);
