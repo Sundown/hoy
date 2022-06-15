@@ -1,14 +1,14 @@
-<h3 align="centre"> (A)hoy! :octopus: </h3>
+<div>
+  <img align="right" src="screenshot.png" width="35%" title="Sample">
+
+### (A)hoy! :octopus:
 
 Git wrapper for stupid people like you, who are too lazy to write two commands.
 
 Written for Node with Google's [zx](https://github.com/google/zx) scripting library.
 
 This is bloated for a Git wrapper, but everyone has the dependencies installed anyway so that doesn't matter.
-
----
-
-<img align="centre" src="screenshot.png" width="50%" title="Sample">
+</div>
 
 ---
 
