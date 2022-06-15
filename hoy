@@ -68,6 +68,7 @@ if (lines.length < 1) {
     process.exit(1);
 }
 
+// Apotheosis
 await $`git commit ${addAll ? "" : "-a"} -m "${msg}"`.quiet().catch(e => {
     console.log(`${err}Something went wrong while trying to commit`);
     console.log(e);
@@ -78,6 +79,7 @@ let added = fmt("green", "new", "A");
 let modified = fmt("yellow", "modified", "M");
 let other = fmt("magenta", "other", true);
 
+// Prepare counts for pretty printing
 const changed = [added, modified, other].filter(i => i != null);
 
 const list = arr => arr.length === 1
@@ -87,6 +89,7 @@ const list = arr => arr.length === 1
     + " and "
     + arr[arr.length - 1];
 
+// Trim the message and add dots if it's too long
 msg = chalk.green(msg.substring(0, 10) + (msg.length > 10 ? "..." : ""));
 
 console.log(`${dot}Committed ${list(changed)} file${changed.length > 1 ? "s" : ""} under "${msg}"`);
