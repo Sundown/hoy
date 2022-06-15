@@ -56,10 +56,10 @@ const lines = staged.stdout
     .map(s => s.trim().split(" "))
     .filter(s => s.length > 1);
 
-// Results in `Title n` with title coloured with chalk.colour
+// Results in `<n> <title>` with title coloured with chalk.colour
 const fmt = (colour, title, prefix) => {
     const c = lines.filter(l => l[0] == prefix).length;
-    return c > 0 ? `${chalk[colour](title)} ${c} ` : ""
+    return c > 0 ? `${c} ${chalk[colour](title)} ` : null;
 }
 
 if (lines.length < 1) {
@@ -73,11 +73,20 @@ await $`git commit ${addAll ? "" : "-a"} -m "${msg}"`.quiet().catch(e => {
     process.exit(1);
 });
 
-let added = fmt("green", "Added", "A");
-let modified = fmt("yellow", "Modified", "M");
-let other = fmt("magenta", "Other", true);
+let added = fmt("green", "new", "A");
+let modified = fmt("yellow", "modified", "M");
+let other = fmt("magenta", "other", true);
 
-console.log(`${dot}Committed "${chalk.green(msg)}"\n${added}${modified}${other}`);
+const changed = [added, modified, other].filter(i => i != null);
+
+const list = arr => arr.length === 1
+    ? arr[0]
+    : arr.slice(0, arr.length - 1)
+        .join(", ")
+    + " and "
+    + arr[arr.length - 1];
+
+console.log(`${dot}Committed "${chalk.green(msg)}"\n${list(changed)} changes`);
 
 let flags = [
     "origin",
