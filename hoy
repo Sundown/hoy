@@ -59,7 +59,7 @@ const lines = staged.stdout
 // Results in `<n> <title>` with title coloured with chalk.colour
 const fmt = (colour, title, prefix) => {
     const c = lines.filter(l => l[0] == prefix).length;
-    return c > 0 ? `${c} ${chalk[colour](title)} ` : null;
+    return c > 0 ? `${c} ${chalk[colour](title)}` : null;
 }
 
 if (lines.length < 1) {
