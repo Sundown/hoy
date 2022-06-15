@@ -1,5 +1,5 @@
 <div>
-  <img style="float: right;"  src="screenshot.png" width="65%" title="Sample">
+  <img align="right" src="screenshot.png" width="65%" title="Sample">
 
 ### (A)hoy! :octopus:
 
